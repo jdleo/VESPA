@@ -1,6 +1,7 @@
 import discord #for discord client
 import asyncio #for async
 import random #for random gen
+import time #time framework
 
 client = discord.Client() #initialize discord client
 
@@ -58,5 +59,14 @@ async def on_ready():
 	print(client.user.id)
 	print('------------')
 
+#this gets called when a new member joins server
+@client.event
+async def on_member_join(member):
+	server = member.server #get reference to server
+	random.seed(time.time()) #use time for seed
+	greeting = random.choice(greetings) #pick random greeting
+	fmt = '{0} {1.mention}' #message string
+	await client.send_message(server, fmt.format(greeting, member))
+	
 #token for Discord bot. Redacted for security.
 client.run('TOKEN_REDACTED')
