@@ -51,7 +51,7 @@ greetings = [
 	"Doctor."
 ]
 
-classes = [
+classes = {
 	"CSC137": "CSC 137 - Computer Organization",
 	"CSC133": "CSC 133 - Computer Graphics for Gaming",
 	"ENGR17": "ENGR 017 - Intro to Elec Engineering",
@@ -74,7 +74,7 @@ classes = [
 	"CSC131": "CSC 131 - Data Structures EXTREME!!!",
 	"CPE166": "CPE 166: Hardware Design",
 	"EEE180": "EEE 180"
-]
+}
 
 #this gets called when Discord client comes "alive"
 @client.event
@@ -90,16 +90,24 @@ async def on_message(message):
 	
 	#DEBUGGING MODE: use this to dump list of all roles in server
 	if message.content.startswith('+roles'):
-		for each in client.get_server("355086293501214730").roles:
+		for each in server.roles:
 			print(each)
 
 	#command to list all classes that can be added by member
 	if message.content.startswith('+classes'):
-		print("nothing")
+		fmt = "You can add any of the following classes using the `+class` command. ```CSC137\nCSC133\nENGR17\nMATH30\nCSC28\nCSC135\nPHYS11a\nCSC60\nCSC35\nCSC20\nCPE64\nCPE185\nCSC15\nMATH45\nPHYS11C\nEEE117\nCSC134\nCSC138\nCSC130\nCSC131\nCPE166\nEEE180```"
+		await client.send_message(message.channel, fmt)
 
 	#command to get class role added
 	if message.content.startswith('+class'):
-		print("nothing")
+		partz = message.content.split(" ")
+		roles = client.get_server("355086293501214730").roles
+		for i in partz:
+			if i != "+class":
+				#add each role to user
+				className = classes[i.upper()]
+				role = discord.utils.get(roles, name=className)
+				await client.add_roles(message.author, role)
 
 #this gets called when a new member joins server
 @client.event
@@ -112,4 +120,4 @@ async def on_member_join(member):
 	await client.send_message(channel_id, fmt.format(greeting, member))
 	
 #token for Discord bot. Redacted for security.
-client.run('API_TOKEN_REDACTED')
+client.run('TOKEN_REDACTED')
