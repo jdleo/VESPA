@@ -66,7 +66,8 @@ async def on_member_join(member):
 	random.seed(time.time()) #use time for seed
 	greeting = random.choice(greetings) #pick random greeting
 	fmt = '{0} {1.mention}\nYou\'ll have to set the classes you belong to, to get access to the class channels. You do this by using the +class command. Example:```+class CSC60 CSC130```To see a full class list, you can use ```+classes```To avoid clutter, please DM me these commands :)' #message string
-	await client.send_message(server, fmt.format(greeting, member))
+	channel_id = discord.Object(id="373286303418155010")
+	await client.send_message(channel_id, fmt.format(greeting, member))
 	
 #token for Discord bot. Redacted for security.
-client.run('TOKEN_REDACTED')
+client.run('NDE2MzE2NDY4NjUzOTgxNzE4.DXDnMw.eNS8BPHAonH490k_hF_MHQaw2Js')
