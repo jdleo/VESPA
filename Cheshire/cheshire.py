@@ -1,8 +1,10 @@
-import discord
-import asyncio
+import discord #for discord client
+import asyncio #for async
+import random #for random gen
 
-client = discord.Client()
+client = discord.Client() #initialize discord client
 
+#array of different ways to greet someone
 greetings = [
 	"Aloha",
 	"Hola",
@@ -48,7 +50,7 @@ greetings = [
 	"Doctor."
 ]
 
-
+#this gets called when Discord client comes "alive"
 @client.event
 async def on_ready():
 	print('Logged in as')
@@ -56,4 +58,5 @@ async def on_ready():
 	print(client.user.id)
 	print('------------')
 
+#token for Discord bot. Redacted for security.
 client.run('TOKEN_REDACTED')
