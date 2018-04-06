@@ -102,12 +102,14 @@ async def on_message(message):
 	if message.content.startswith('+class'):
 		partz = message.content.split(" ")
 		roles = client.get_server("355086293501214730").roles
+        roleList = []   #list of roles to be queued for adding
 		for i in partz:
 			if i != "+class":
 				#add each role to user
 				className = classes[i.upper()]
 				role = discord.utils.get(roles, name=className)
-				await client.add_roles(message.author, role)
+                roleList.append(role)       #queue role for adding
+        await client.add_roles(message.author, *roleList)
 
 #this gets called when a new member joins server
 @client.event
